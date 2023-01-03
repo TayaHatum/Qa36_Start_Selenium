@@ -23,13 +23,47 @@ public class Index {
     @Test
     public void itemsTests(){
         // find Item1 & click() ===> assert that "div-alert" contains message  "Clicked by Item 1"
+        wd.findElement(By.cssSelector("a")).click();
+
+        WebElement container = wd.findElement(By.cssSelector("#alert"));
+        String message = container.getText();
+        System.out.println("Text of container is -->" +message);
+        Assert.assertTrue(message.contains("Clicked by Item 1"));
+        Assert.assertTrue(message.equals("Clicked by Item 1"));
+        Assert.assertEquals(message,"Clicked by Item 1");
+
         // find Item3 & click() ===> assert that "div-alert" contains message  "Clicked by Item 3"
+        WebElement item3 = wd.findElement(By.xpath("//li[3]"));
+        item3.click();
+        String item3Text = item3.getText(); /// Item 3
+        message = container.getText(); // Clicked by Item 3
+        Assert.assertTrue(message.contains(item3Text));
+
+
     }
 
     @Test
     public void formTests(){
      // fill name & fill surename & click send
+        WebElement name = wd.findElement(By.xpath("//input[1]"));
+        name.click();
+        name.clear();
+        name.sendKeys("עגרדלו");
+
+        String inputText = name.getAttribute("value");
+        System.out.println("!!!! " +inputText);
+        WebElement sureName = wd.findElement(By.xpath("//input[2]"));
+        sureName.click();
+        sureName.clear();
+        sureName.sendKeys("First");
+
+        wd.findElement(By.xpath("//button")).click();
         // Assert that "div-alert" contains text with name + surename
+        WebElement container = wd.findElement(By.cssSelector("#alert"));
+        String message = container.getText();
+        //  Assert.assertEquals(message,"עגרדלו First");
+        Assert.assertTrue(message.contains(inputText));
+        System.out.println("חיכאטגע");
     }
 
     @Test
